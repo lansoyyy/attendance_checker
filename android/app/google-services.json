@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "735153150733",
+    "project_id": "eats-6c0dc",
+    "storage_bucket": "eats-6c0dc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:735153150733:android:df6311d2c7c93aa459ee44",
+        "android_client_info": {
+          "package_name": "com.example.attendance_checker"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQV5B58clXuE1ESovWWWx618mB8j-BWZc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
