@@ -38,7 +38,9 @@ class LandingPage extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                        builder: (context) => const SignupOnePage()),
+                        builder: (context) => SignupOnePage(
+                              type: 'Student',
+                            )),
                   );
                 },
               ),
@@ -62,7 +64,9 @@ class LandingPage extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                        builder: (context) => const SignupOnePage()),
+                        builder: (context) => SignupOnePage(
+                              type: 'Professor',
+                            )),
                   );
                 },
               ),

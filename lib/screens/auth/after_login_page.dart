@@ -1,5 +1,6 @@
 import 'package:attendance_checker/screens/auth/initial_login_page.dart';
 import 'package:attendance_checker/screens/home_screen.dart';
+import 'package:attendance_checker/screens/proof_home_screen.dart';
 import 'package:attendance_checker/utils/colors.dart';
 import 'package:attendance_checker/widgets/button_widget.dart';
 import 'package:attendance_checker/widgets/header_widget.dart';
@@ -78,7 +79,7 @@ class _AfterLoginPageState extends State<AfterLoginPage> {
                   } else {
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
-                          builder: (context) => const HomeScreen()),
+                          builder: (context) => const ProofHomeScreen()),
                     );
                   }
                 },

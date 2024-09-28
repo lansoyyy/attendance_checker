@@ -7,7 +7,8 @@ import 'package:attendance_checker/widgets/textfield_widget.dart';
 import 'package:flutter/material.dart';
 
 class SignupTwoPage extends StatefulWidget {
-  const SignupTwoPage({super.key});
+  String type;
+  SignupTwoPage({super.key, required this.type});
 
   @override
   State<SignupTwoPage> createState() => _SignupTwoPageState();
@@ -27,7 +28,7 @@ class _SignupTwoPageState extends State<SignupTwoPage> {
                 height: 20,
               ),
               TextWidget(
-                text: 'STUDENT',
+                text: widget.type,
                 fontSize: 38,
                 fontFamily: 'Bold',
               ),

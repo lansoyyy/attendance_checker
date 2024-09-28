@@ -7,7 +7,8 @@ import 'package:attendance_checker/widgets/textfield_widget.dart';
 import 'package:flutter/material.dart';
 
 class SignupOnePage extends StatefulWidget {
-  const SignupOnePage({super.key});
+  String type;
+  SignupOnePage({super.key, required this.type});
 
   @override
   State<SignupOnePage> createState() => _SignupOnePageState();
@@ -32,7 +33,7 @@ class _SignupOnePageState extends State<SignupOnePage> {
                 height: 20,
               ),
               TextWidget(
-                text: 'STUDENT',
+                text: widget.type,
                 fontSize: 38,
                 fontFamily: 'Bold',
               ),
@@ -44,9 +45,13 @@ class _SignupOnePageState extends State<SignupOnePage> {
               TextFieldWidget(width: 325, label: 'Lastname', controller: lname),
               TextFieldWidget(width: 325, label: 'Course', controller: course),
               TextFieldWidget(
-                  width: 325, label: 'Student Id', controller: studentId),
+                  width: 325,
+                  label: '${widget.type} Id',
+                  controller: studentId),
               TextFieldWidget(
-                  width: 325, label: 'Student Id', controller: studentId),
+                  width: 325,
+                  label: '${widget.type} Id',
+                  controller: studentId),
               TextFieldWidget(
                 width: 325,
                 label: 'Password',
@@ -65,7 +70,9 @@ class _SignupOnePageState extends State<SignupOnePage> {
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                        builder: (context) => const SignupTwoPage()),
+                        builder: (context) => SignupTwoPage(
+                              type: widget.type,
+                            )),
                   );
                 },
               ),
