@@ -8,7 +8,11 @@ import 'package:attendance_checker/widgets/textfield_widget.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  String type;
+  LoginPage({
+    super.key,
+    required this.type,
+  });
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -30,7 +34,7 @@ class _LoginPageState extends State<LoginPage> {
                 height: 20,
               ),
               TextWidget(
-                text: 'STUDENT',
+                text: widget.type,
                 fontSize: 38,
                 fontFamily: 'Bold',
               ),
@@ -38,7 +42,9 @@ class _LoginPageState extends State<LoginPage> {
                 height: 20,
               ),
               TextFieldWidget(
-                  width: 325, label: 'Student Id', controller: studentId),
+                  width: 325,
+                  label: '${widget.type} Id',
+                  controller: studentId),
               TextFieldWidget(
                 width: 325,
                 label: 'Password',
@@ -57,7 +63,9 @@ class _LoginPageState extends State<LoginPage> {
                 onPressed: () {
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
-                        builder: (context) => const AfterLoginPage()),
+                        builder: (context) => AfterLoginPage(
+                              type: widget.type,
+                            )),
                   );
                 },
               ),

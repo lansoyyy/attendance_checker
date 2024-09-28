@@ -38,7 +38,9 @@ class InitialLoginPage extends StatelessWidget {
                 label: 'Student',
                 onPressed: () {
                   Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => const LoginPage()),
+                    MaterialPageRoute(builder: (context) =>  LoginPage(
+                            type: 'Student',
+                    )),
                   );
                 },
               ),
@@ -61,7 +63,10 @@ class InitialLoginPage extends StatelessWidget {
                 label: 'Professor',
                 onPressed: () {
                   Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => const LoginPage()),
+                    MaterialPageRoute(
+                        builder: (context) => LoginPage(
+                              type: 'Professor',
+                            )),
                   );
                 },
               ),

@@ -8,7 +8,11 @@ import 'package:attendance_checker/widgets/textfield_widget.dart';
 import 'package:flutter/material.dart';
 
 class AfterLoginPage extends StatefulWidget {
-  const AfterLoginPage({super.key});
+  String type;
+  AfterLoginPage({
+    super.key,
+    required this.type,
+  });
 
   @override
   State<AfterLoginPage> createState() => _AfterLoginPageState();
@@ -28,7 +32,7 @@ class _AfterLoginPageState extends State<AfterLoginPage> {
                 height: 20,
               ),
               TextWidget(
-                text: 'STUDENT',
+                text: widget.type,
                 fontSize: 38,
                 fontFamily: 'Bold',
               ),
@@ -66,9 +70,17 @@ class _AfterLoginPageState extends State<AfterLoginPage> {
                 fontSize: 24,
                 label: 'Proceed to Home',
                 onPressed: () {
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => const HomeScreen()),
-                  );
+                  if (widget.type == 'Student') {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                          builder: (context) => const HomeScreen()),
+                    );
+                  } else {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                          builder: (context) => const HomeScreen()),
+                    );
+                  }
                 },
               ),
               const SizedBox(
