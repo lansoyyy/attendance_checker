@@ -1,9 +1,12 @@
 import 'package:attendance_checker/screens/auth/signup_two_page.dart';
+import 'package:attendance_checker/services/add_user.dart';
 import 'package:attendance_checker/utils/colors.dart';
 import 'package:attendance_checker/widgets/button_widget.dart';
 import 'package:attendance_checker/widgets/header_widget.dart';
 import 'package:attendance_checker/widgets/text_widget.dart';
 import 'package:attendance_checker/widgets/textfield_widget.dart';
+import 'package:attendance_checker/widgets/toast_widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SignupOnePage extends StatefulWidget {
@@ -49,10 +52,6 @@ class _SignupOnePageState extends State<SignupOnePage> {
                   label: '${widget.type} Id',
                   controller: studentId),
               TextFieldWidget(
-                  width: 325,
-                  label: '${widget.type} Id',
-                  controller: studentId),
-              TextFieldWidget(
                 width: 325,
                 label: 'Password',
                 controller: password,
@@ -68,12 +67,7 @@ class _SignupOnePageState extends State<SignupOnePage> {
                 fontSize: 24,
                 label: 'Proceed',
                 onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                        builder: (context) => SignupTwoPage(
-                              type: widget.type,
-                            )),
-                  );
+                  register(context);
                 },
               ),
               const SizedBox(
@@ -84,5 +78,41 @@ class _SignupOnePageState extends State<SignupOnePage> {
         ),
       ),
     );
+  }
+
+  register(context) async {
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: '${studentId.text}@${widget.type}.com',
+          password: password.text);
+
+      addUser(widget.type, fname.text, lname.text, course.text,
+          '${studentId.text}@${widget.type}.com');
+
+      // signup(nameController.text, numberController.text, addressController.text,
+      //     emailController.text);
+
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+            builder: (context) => SignupTwoPage(
+                  type: widget.type,
+                )),
+      );
+      showToast("Registered Successfully!");
+
+      Navigator.pop(context);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        showToast('The password provided is too weak.');
+      } else if (e.code == 'email-already-in-use') {
+        showToast('The account already exists for that email.');
+      } else if (e.code == 'invalid-email') {
+        showToast('The email address is not valid.');
+      } else {
+        showToast(e.toString());
+      }
+    } on Exception catch (e) {
+      showToast("An error occurred: $e");
+    }
   }
 }
