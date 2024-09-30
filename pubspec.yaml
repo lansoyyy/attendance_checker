@@ -42,6 +42,7 @@ dependencies:
   firebase_storage:
   firebase_auth:
   get_storage:
+  local_auth:
 
 dev_dependencies:
   flutter_test:
