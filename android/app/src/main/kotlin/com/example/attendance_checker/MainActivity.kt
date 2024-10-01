@@ -1,5 +1,5 @@
-import io.flutter.embedding.android.FlutterFragmentActivity
+package com.example.attendance_checker
 
-class MainActivity: FlutterFragmentActivity() {
-    // ...
-}
+import io.flutter.embedding.android.FlutterActivity
+
+class MainActivity: FlutterActivity()
