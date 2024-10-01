@@ -1,3 +1,4 @@
+import 'package:attendance_checker/screens/add_class_screen.dart';
 import 'package:attendance_checker/screens/qr_screen.dart';
 import 'package:attendance_checker/utils/colors.dart';
 import 'package:attendance_checker/utils/const.dart';
@@ -17,7 +18,11 @@ class ProofHomeScreen extends StatelessWidget {
           Icons.add,
           color: Colors.white,
         ),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const AddClassScreen()),
+          );
+        },
       ),
       body: StreamBuilder<DocumentSnapshot>(
           stream: FirebaseFirestore.instance
