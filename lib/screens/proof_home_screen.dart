@@ -118,81 +118,105 @@ class ProofHomeScreen extends StatelessWidget {
                   color: primary,
                   fontFamily: 'Bold',
                 ),
-                Expanded(
-                  child: GridView.builder(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3),
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) => const QRScreen()),
-                          );
-                        },
-                        child: Card(
-                          color: secondary,
-                          child: SizedBox(
-                            width: 50,
-                            height: 50,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  TextWidget(
-                                    text: 'Subject',
-                                    fontSize: 18,
-                                    color: primary,
-                                    fontFamily: 'Bold',
-                                  ),
-                                  TextWidget(
-                                    text: 'Name/Code',
-                                    fontSize: 18,
-                                    color: primary,
-                                    fontFamily: 'Bold',
-                                  ),
-                                  const SizedBox(
-                                    height: 3,
-                                  ),
-                                  TextWidget(
-                                    text: 'Tue-Fri',
-                                    fontSize: 16,
-                                    color: Colors.white,
-                                    fontFamily: 'Bold',
-                                  ),
-                                  Align(
-                                    alignment: Alignment.bottomRight,
+                StreamBuilder<QuerySnapshot>(
+                    stream: FirebaseFirestore.instance
+                        .collection('Class')
+                        .where('uid', isEqualTo: userId)
+                        .snapshots(),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<QuerySnapshot> snapshot) {
+                      if (snapshot.hasError) {
+                        print(snapshot.error);
+                        return const Center(child: Text('Error'));
+                      }
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Padding(
+                          padding: EdgeInsets.only(top: 50),
+                          child: Center(
+                              child: CircularProgressIndicator(
+                            color: Colors.black,
+                          )),
+                        );
+                      }
+
+                      final data = snapshot.requireData;
+                      return Expanded(
+                        child: GridView.builder(
+                          itemCount: data.docs.length,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 3),
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                      builder: (context) => QRScreen(
+                                            data: data.docs[index],
+                                          )),
+                                );
+                              },
+                              child: Card(
+                                color: secondary,
+                                child: SizedBox(
+                                  width: 50,
+                                  height: 50,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
                                     child: Column(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.end,
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
                                       children: [
                                         TextWidget(
-                                          text: '7:30AM',
-                                          fontSize: 12,
-                                          color: Colors.black,
+                                          text: data.docs[index]['subname'],
+                                          fontSize: 18,
+                                          color: primary,
                                           fontFamily: 'Bold',
                                         ),
+                                        const SizedBox(
+                                          height: 3,
+                                        ),
                                         TextWidget(
-                                          text: '10:30AM',
-                                          fontSize: 12,
-                                          color: Colors.black,
+                                          text: data.docs[index]['schedule'],
+                                          fontSize: 16,
+                                          color: Colors.white,
                                           fontFamily: 'Bold',
+                                        ),
+                                        Align(
+                                          alignment: Alignment.bottomRight,
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.end,
+                                            children: [
+                                              TextWidget(
+                                                text: data.docs[index]
+                                                    ['timestart'],
+                                                fontSize: 12,
+                                                color: Colors.black,
+                                                fontFamily: 'Bold',
+                                              ),
+                                              TextWidget(
+                                                text: data.docs[index]
+                                                    ['timeend'],
+                                                fontSize: 12,
+                                                color: Colors.black,
+                                                fontFamily: 'Bold',
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ],
                                     ),
                                   ),
-                                ],
+                                ),
                               ),
-                            ),
-                          ),
+                            );
+                          },
                         ),
                       );
-                    },
-                  ),
-                ),
+                    }),
               ],
             );
           }),

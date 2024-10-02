@@ -3,8 +3,9 @@ import 'package:attendance_checker/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 
 class QRScreen extends StatelessWidget {
-  const QRScreen({super.key});
+  dynamic data;
 
+  QRScreen({super.key, required this.data});
   @override
   Widget build(BuildContext context) {
     return Scaffold(

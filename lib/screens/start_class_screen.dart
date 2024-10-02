@@ -1,3 +1,4 @@
+import 'package:attendance_checker/services/add_class.dart';
 import 'package:attendance_checker/utils/colors.dart';
 import 'package:attendance_checker/widgets/button_widget.dart';
 import 'package:attendance_checker/widgets/text_widget.dart';
@@ -27,6 +28,8 @@ class _StartClassScreenState extends State<StartClassScreen> {
     'Thursday',
     'Friday',
   ];
+
+  String selected = 'Monday';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,22 +58,32 @@ class _StartClassScreenState extends State<StartClassScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     for (int i = 0; i < schedules.length; i++)
-                      Card(
-                        child: SizedBox(
-                          width: 75,
-                          height: 75,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              TextWidget(
-                                text:
-                                    '${schedules[i][0]} ${schedules[i][1]} ${schedules[i][2]}',
-                                fontSize: 18,
-                                fontFamily: 'Bold',
-                                color: primary,
-                              ),
-                            ],
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            selected = schedules[i];
+                          });
+                        },
+                        child: Card(
+                          child: Container(
+                            decoration: const BoxDecoration(),
+                            width: 75,
+                            height: 75,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                TextWidget(
+                                  text:
+                                      '${schedules[i][0]} ${schedules[i][1]} ${schedules[i][2]}',
+                                  fontSize: 18,
+                                  fontFamily: 'Bold',
+                                  color: selected == schedules[i]
+                                      ? primary
+                                      : Colors.grey,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -199,6 +212,8 @@ class _StartClassScreenState extends State<StartClassScreen> {
               ButtonWidget(
                 label: 'Create',
                 onPressed: () {
+                  addClass(subname.text, selected, time1.text, time2.text,
+                      days.text, pen1.text, pen2.text, pen3.text);
                   Navigator.pop(context);
                 },
               ),

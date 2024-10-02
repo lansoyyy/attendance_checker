@@ -115,7 +115,9 @@ class HomeScreen extends StatelessWidget {
                         onTap: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                                builder: (context) => const QRScreen()),
+                                builder: (context) => QRScreen(
+                                      data: const {},
+                                    )),
                           );
                         },
                         child: Card(
