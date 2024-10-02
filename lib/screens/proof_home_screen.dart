@@ -1,5 +1,6 @@
 import 'package:attendance_checker/screens/add_class_screen.dart';
 import 'package:attendance_checker/screens/qr_screen.dart';
+import 'package:attendance_checker/screens/start_class_screen.dart';
 import 'package:attendance_checker/utils/colors.dart';
 import 'package:attendance_checker/utils/const.dart';
 import 'package:attendance_checker/widgets/text_widget.dart';
@@ -20,7 +21,7 @@ class ProofHomeScreen extends StatelessWidget {
         ),
         onPressed: () {
           Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => const AddClassScreen()),
+            MaterialPageRoute(builder: (context) => const StartClassScreen()),
           );
         },
       ),

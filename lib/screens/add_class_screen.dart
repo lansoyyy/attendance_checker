@@ -57,67 +57,67 @@ class _AddClassScreenState extends State<AddClassScreen> {
                   );
                 },
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              ButtonWidget(
-                label: 'Enroll Student',
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return Dialog(
-                        backgroundColor: Colors.white,
-                        child: Padding(
-                          padding: const EdgeInsets.all(15.0),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              TextWidget(
-                                text: 'Student ID Number',
-                                fontSize: 28,
-                                fontFamily: 'Bold',
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  SizedBox(
-                                    width: 125,
-                                    child: TextFieldWidget(
-                                      label: '',
-                                      controller: time1,
-                                      inputType: TextInputType.number,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 125,
-                                    child: TextFieldWidget(
-                                      label: '',
-                                      controller: time2,
-                                      inputType: TextInputType.number,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              ButtonWidget(
-                                radius: 100,
-                                label: 'Add',
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                  );
-                },
-              ),
+              // const SizedBox(
+              //   height: 10,
+              // ),
+              // ButtonWidget(
+              //   label: 'Enroll Student',
+              //   onPressed: () {
+              //     showDialog(
+              //       context: context,
+              //       builder: (context) {
+              //         return Dialog(
+              //           backgroundColor: Colors.white,
+              //           child: Padding(
+              //             padding: const EdgeInsets.all(15.0),
+              //             child: Column(
+              //               mainAxisSize: MainAxisSize.min,
+              //               children: [
+              //                 TextWidget(
+              //                   text: 'Student ID Number',
+              //                   fontSize: 28,
+              //                   fontFamily: 'Bold',
+              //                 ),
+              //                 Row(
+              //                   mainAxisAlignment:
+              //                       MainAxisAlignment.spaceEvenly,
+              //                   children: [
+              //                     SizedBox(
+              //                       width: 125,
+              //                       child: TextFieldWidget(
+              //                         label: '',
+              //                         controller: time1,
+              //                         inputType: TextInputType.number,
+              //                       ),
+              //                     ),
+              //                     SizedBox(
+              //                       width: 125,
+              //                       child: TextFieldWidget(
+              //                         label: '',
+              //                         controller: time2,
+              //                         inputType: TextInputType.number,
+              //                       ),
+              //                     ),
+              //                   ],
+              //                 ),
+              //                 const SizedBox(
+              //                   height: 20,
+              //                 ),
+              //                 ButtonWidget(
+              //                   radius: 100,
+              //                   label: 'Add',
+              //                   onPressed: () {
+              //                     Navigator.pop(context);
+              //                   },
+              //                 ),
+              //               ],
+              //             ),
+              //           ),
+              //         );
+              //       },
+              //     );
+              //   },
+              // ),
               const SizedBox(
                 height: 10,
               ),
