@@ -1,5 +1,6 @@
 import 'package:attendance_checker/screens/auth/after_login_page.dart';
 import 'package:attendance_checker/screens/auth/signup_two_page.dart';
+import 'package:attendance_checker/screens/home_screen.dart';
 import 'package:attendance_checker/utils/colors.dart';
 import 'package:attendance_checker/widgets/button_widget.dart';
 import 'package:attendance_checker/widgets/header_widget.dart';
@@ -83,10 +84,7 @@ class _LoginPageState extends State<LoginPage> {
           password: password.text);
 
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-            builder: (context) => AfterLoginPage(
-                  type: widget.type,
-                )),
+        MaterialPageRoute(builder: (context) => const HomeScreen()),
       );
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {

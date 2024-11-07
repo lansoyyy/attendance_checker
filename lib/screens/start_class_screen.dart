@@ -109,7 +109,7 @@ class _StartClassScreenState extends State<StartClassScreen> {
                     child: TextFieldWidget(
                       label: 'Start',
                       controller: time1,
-                      inputType: TextInputType.number,
+                      inputType: TextInputType.datetime,
                     ),
                   ),
                   SizedBox(
@@ -117,7 +117,7 @@ class _StartClassScreenState extends State<StartClassScreen> {
                     child: TextFieldWidget(
                       label: 'End',
                       controller: time2,
-                      inputType: TextInputType.number,
+                      inputType: TextInputType.datetime,
                     ),
                   ),
                 ],
