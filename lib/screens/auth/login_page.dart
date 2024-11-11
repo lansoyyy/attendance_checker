@@ -1,6 +1,7 @@
 import 'package:attendance_checker/screens/auth/after_login_page.dart';
 import 'package:attendance_checker/screens/auth/signup_two_page.dart';
 import 'package:attendance_checker/screens/home_screen.dart';
+import 'package:attendance_checker/screens/proof_home_screen.dart';
 import 'package:attendance_checker/utils/colors.dart';
 import 'package:attendance_checker/widgets/button_widget.dart';
 import 'package:attendance_checker/widgets/header_widget.dart';
@@ -83,9 +84,15 @@ class _LoginPageState extends State<LoginPage> {
           email: '${studentId.text}@${widget.type}.com',
           password: password.text);
 
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const HomeScreen()),
-      );
+      if (widget.type == 'Student') {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const HomeScreen()),
+        );
+      } else {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const ProofHomeScreen()),
+        );
+      }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         showToast("No user found with that email.");
