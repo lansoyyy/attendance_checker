@@ -179,12 +179,18 @@ class ProofHomeScreen extends StatelessWidget {
                                         const SizedBox(
                                           height: 3,
                                         ),
-                                        TextWidget(
-                                          text: data.docs[index]['schedule'],
-                                          fontSize: 16,
-                                          color: Colors.white,
-                                          fontFamily: 'Bold',
-                                        ),
+                                        for (int i = 0;
+                                            i <
+                                                data.docs[index]['schedule']
+                                                    .length;
+                                            i++)
+                                          TextWidget(
+                                            text: data.docs[index]['schedule']
+                                                [i],
+                                            fontSize: 16,
+                                            color: Colors.white,
+                                            fontFamily: 'Bold',
+                                          ),
                                         Align(
                                           alignment: Alignment.bottomRight,
                                           child: Column(

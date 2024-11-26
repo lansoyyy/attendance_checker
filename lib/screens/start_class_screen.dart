@@ -3,6 +3,7 @@ import 'package:attendance_checker/utils/colors.dart';
 import 'package:attendance_checker/widgets/button_widget.dart';
 import 'package:attendance_checker/widgets/text_widget.dart';
 import 'package:attendance_checker/widgets/textfield_widget.dart';
+import 'package:attendance_checker/widgets/toast_widget.dart';
 import 'package:flutter/material.dart';
 
 class StartClassScreen extends StatefulWidget {
@@ -29,7 +30,7 @@ class _StartClassScreenState extends State<StartClassScreen> {
     'Friday',
   ];
 
-  String selected = 'Monday';
+  List sels = ['Monday'];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,7 +62,11 @@ class _StartClassScreenState extends State<StartClassScreen> {
                       GestureDetector(
                         onTap: () {
                           setState(() {
-                            selected = schedules[i];
+                            if (sels.contains(schedules[i])) {
+                              sels.remove(schedules[i]);
+                            } else {
+                              sels.add(schedules[i]);
+                            }
                           });
                         },
                         child: Card(
@@ -78,7 +83,7 @@ class _StartClassScreenState extends State<StartClassScreen> {
                                       '${schedules[i][0]} ${schedules[i][1]} ${schedules[i][2]}',
                                   fontSize: 18,
                                   fontFamily: 'Bold',
-                                  color: selected == schedules[i]
+                                  color: sels.contains(schedules[i])
                                       ? primary
                                       : Colors.grey,
                                 ),
@@ -212,9 +217,13 @@ class _StartClassScreenState extends State<StartClassScreen> {
               ButtonWidget(
                 label: 'Create',
                 onPressed: () {
-                  addClass(subname.text, selected, time1.text, time2.text,
-                      days.text, pen1.text, pen2.text, pen3.text);
-                  Navigator.pop(context);
+                  if (sels.isNotEmpty) {
+                    addClass(subname.text, sels, time1.text, time2.text,
+                        days.text, pen1.text, pen2.text, pen3.text);
+                    Navigator.pop(context);
+                  } else {
+                    showToast('Please select a day schedule!');
+                  }
                 },
               ),
               const SizedBox(
