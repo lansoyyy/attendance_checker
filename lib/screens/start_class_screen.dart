@@ -15,8 +15,7 @@ class StartClassScreen extends StatefulWidget {
 
 class _StartClassScreenState extends State<StartClassScreen> {
   final subname = TextEditingController();
-  final time1 = TextEditingController();
-  final time2 = TextEditingController();
+
   final days = TextEditingController();
   final pen1 = TextEditingController();
   final pen2 = TextEditingController();
@@ -31,6 +30,24 @@ class _StartClassScreenState extends State<StartClassScreen> {
   ];
 
   List sels = ['Monday'];
+
+  final TextEditingController time1 = TextEditingController();
+  final TextEditingController time2 = TextEditingController();
+
+  Future<void> _selectTime(
+      BuildContext context, TextEditingController controller) async {
+    final TimeOfDay? pickedTime = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+    if (pickedTime != null) {
+      setState(() {
+        controller.text =
+            pickedTime.format(context); // Formats the time into a string
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -111,18 +128,32 @@ class _StartClassScreenState extends State<StartClassScreen> {
                 children: [
                   SizedBox(
                     width: 150,
-                    child: TextFieldWidget(
-                      label: 'Start',
-                      controller: time1,
-                      inputType: TextInputType.datetime,
+                    child: GestureDetector(
+                      onTap: () => _selectTime(context, time1),
+                      child: AbsorbPointer(
+                        child: TextField(
+                          controller: time1,
+                          decoration: const InputDecoration(
+                            labelText: 'Start',
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                   SizedBox(
                     width: 150,
-                    child: TextFieldWidget(
-                      label: 'End',
-                      controller: time2,
-                      inputType: TextInputType.datetime,
+                    child: GestureDetector(
+                      onTap: () => _selectTime(context, time2),
+                      child: AbsorbPointer(
+                        child: TextField(
+                          controller: time2,
+                          decoration: const InputDecoration(
+                            labelText: 'End',
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ],
