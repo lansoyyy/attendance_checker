@@ -119,6 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 StreamBuilder<QuerySnapshot>(
                     stream: FirebaseFirestore.instance
                         .collection('Class')
+                        .where('students', arrayContains: userId)
                         .snapshots(),
                     builder: (BuildContext context,
                         AsyncSnapshot<QuerySnapshot> snapshot) {
