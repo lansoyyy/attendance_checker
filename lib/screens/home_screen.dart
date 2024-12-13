@@ -151,6 +151,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   MaterialPageRoute(
                                       builder: (context) => QRScreen(
                                             data: data.docs[index],
+                                            type: 'Student',
                                           )),
                                 );
                               },

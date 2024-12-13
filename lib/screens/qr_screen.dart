@@ -3,26 +3,30 @@ import 'package:attendance_checker/widgets/text_widget.dart';
 import 'package:attendance_checker/widgets/toast_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 import 'package:intl/intl.dart' show DateFormat, toBeginningOfSentenceCase;
+import 'package:qr_flutter/qr_flutter.dart';
 
 class QRScreen extends StatelessWidget {
   dynamic data;
 
-  QRScreen({super.key, required this.data});
+  String type;
+
+  QRScreen({super.key, required this.data, required this.type});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.blue,
-        child: const Icon(
-          Icons.add,
-          color: Colors.white,
-        ),
-        onPressed: () {
-          showStudents(context);
-        },
-      ),
+      floatingActionButton: type == 'Proof'
+          ? FloatingActionButton(
+              backgroundColor: Colors.blue,
+              child: const Icon(
+                Icons.add,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                showStudents(context);
+              },
+            )
+          : null,
       backgroundColor: secondary,
       body: SafeArea(
         child: SingleChildScrollView(
@@ -94,13 +98,7 @@ class QRScreen extends StatelessWidget {
                                 fontFamily: 'Bold',
                               ),
                               TextWidget(
-                                text: 'Time',
-                                fontSize: 16,
-                                color: Colors.black,
-                                fontFamily: 'Bold',
-                              ),
-                              TextWidget(
-                                text: 'Date',
+                                text: 'Email',
                                 fontSize: 16,
                                 color: Colors.black,
                                 fontFamily: 'Bold',
@@ -111,32 +109,48 @@ class QRScreen extends StatelessWidget {
                             height: 5,
                           ),
                           for (int i = 0; i < data['students'].length; i++)
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 45),
-                                  child: TextWidget(
-                                    text: data['students'][i]['name'],
-                                    fontSize: 14,
-                                    color: Colors.black,
-                                    fontFamily: 'Medium',
-                                  ),
-                                ),
-                                TextWidget(
-                                  text: data['students'][i]['time'],
-                                  fontSize: 14,
-                                  color: Colors.black,
-                                  fontFamily: 'Medium',
-                                ),
-                                TextWidget(
-                                  text: data['students'][i]['date'],
-                                  fontSize: 14,
-                                  color: Colors.black,
-                                  fontFamily: 'Medium',
-                                ),
-                              ],
-                            ),
+                            StreamBuilder<DocumentSnapshot>(
+                                stream: FirebaseFirestore.instance
+                                    .collection('Student')
+                                    .doc(data['students'][i])
+                                    .snapshots(),
+                                builder: (context,
+                                    AsyncSnapshot<DocumentSnapshot> snapshot) {
+                                  if (!snapshot.hasData) {
+                                    return const Center(child: Text('Loading'));
+                                  } else if (snapshot.hasError) {
+                                    return const Center(
+                                        child: Text('Something went wrong'));
+                                  } else if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return const Center(
+                                        child: CircularProgressIndicator());
+                                  }
+                                  dynamic studentData = snapshot.data;
+                                  return Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 25),
+                                        child: TextWidget(
+                                          text:
+                                              '${studentData['fname']} ${studentData['lname']}',
+                                          fontSize: 14,
+                                          color: Colors.black,
+                                          fontFamily: 'Medium',
+                                        ),
+                                      ),
+                                      TextWidget(
+                                        text: studentData['email'],
+                                        fontSize: 14,
+                                        color: Colors.black,
+                                        fontFamily: 'Medium',
+                                      ),
+                                    ],
+                                  );
+                                }),
                         ],
                       ),
                     ),

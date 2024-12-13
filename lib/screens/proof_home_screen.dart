@@ -1,4 +1,3 @@
-import 'package:attendance_checker/screens/add_class_screen.dart';
 import 'package:attendance_checker/screens/qr_screen.dart';
 import 'package:attendance_checker/screens/start_class_screen.dart';
 import 'package:attendance_checker/utils/colors.dart';
@@ -201,6 +200,7 @@ class ProofHomeScreen extends StatelessWidget {
                                   MaterialPageRoute(
                                       builder: (context) => QRScreen(
                                             data: data.docs[index],
+                                            type: 'Proof',
                                           )),
                                 );
                               },
